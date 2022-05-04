@@ -56,11 +56,11 @@ class DentaBot extends ActivityHandler {
                 LuisResult.intents.GetAvailability.score > .7) {
                     console.log(LuisResult.intents.GetAvailability.score);
                     const response = "Get the available times to book!";
-                    
-                    let availableAppointments = await getAvailability();
+                    let availableAppointments = await this.DentistScheduler.getAvailability();
+                    // let availableAppointments = await getAvailability();
 
                     
-                    await context.sendActivity(`Here are the available appointment times. Please specify am or pm in your response: ${availableAppointments.join(', ')}`);
+                    await context.sendActivity(`Here are the available appointment times. Please specify am or pm in your response: ${availableAppointments}`);
                     await next();
                     return;
                 }
@@ -69,13 +69,13 @@ class DentaBot extends ActivityHandler {
                 LuisResult.intents.ScheduleAppointment.score > .5) {
                     let timeAsked = LuisResult.entities.$instance.time[0].text;
                     
-                    let canSchedule = await canScheduleAppointment(timeAsked);
-                    if(canSchedule){
-                        await context.sendActivity(`Your appointment is now booked for ${timeAsked}!. Please let me know if you need any other assistance.`);
-                    } else {
-                        let availableAppointments = await getAvailability();
-                        await context.sendActivity(`That time is not available... these are the current available times\n Please specify am or pm in your response: ${availableAppointments.join(', ')}`);
-                    }
+                    // let canSchedule = await canScheduleAppointment(timeAsked);
+                    // if(canSchedule){
+                    //     await context.sendActivity(`Your appointment is now booked for ${timeAsked}!. Please let me know if you need any other assistance.`);
+                    // } else {
+                    //     let availableAppointments = await getAvailability();
+                    //     await context.sendActivity(`That time is not available... these are the current available times\n Please specify am or pm in your response: ${availableAppointments.join(', ')}`);
+                    // }
                     
                     await next();
                     return;
