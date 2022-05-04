@@ -5,6 +5,8 @@ name: Build and deploy Node.js app to Azure Web App - dentist-assistant-appservi
 
 on:
   push:
+    path:
+      - ContosoDentistryChatBot\**
     branches:
       - master
   workflow_dispatch:
